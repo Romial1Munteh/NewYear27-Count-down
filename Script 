@@ -1,0 +1,40 @@
+script.js
+
+const zone='Africa/Douala';
+const locationName='Yaoundé, Cameroon';
+const offsetMs=60*60*1000;
+const $=selector=>document.querySelector(selector);
+const els={days:$('#days'),hours:$('#hours'),minutes:$('#minutes'),seconds:$('#seconds'),year:$('#target-year'),date:$('#target-date'),time:$('#current-time'),place:$('#place-label'),bar:$('#progress-bar'),percent:$('#progress-percent'),copy:$('#copy-button'),copyLabel:$('#copy-label'),toast:$('#toast')};
+let target=null;
+let toastTimer=null;
+const pad=(value,length=2)=>String(value).padStart(length,'0');
+function yearAtYaounde(date=new Date()){return Number(new Intl.DateTimeFormat('en-CA',{timeZone:zone,year:'numeric'}).format(date));}
+function nextMidnight(date=new Date()){return new Date(Date.UTC(yearAtYaounde(date)+1,0,1)-offsetMs);}
+function dateText(date){return new Intl.DateTimeFormat('en-CM',{timeZone:zone,weekday:'long',month:'long',day:'numeric',year:'numeric'}).format(date);}
+function timeText(date){return new Intl.DateTimeFormat('en-CM',{timeZone:zone,hour:'2-digit',minute:'2-digit',second:'2-digit',hour12:false}).format(date);}
+function update(){
+  const now=new Date();
+  if(!target||now>=target)target=nextMidnight(now);
+  const total=Math.max(0,Math.floor((target-now)/1000));
+  const days=Math.floor(total/86400);
+  const hours=Math.floor(total%86400/3600);
+  const minutes=Math.floor(total%3600/60);
+  const seconds=total%60;
+  els.days.textContent=pad(days,3);
+  els.hours.textContent=pad(hours);
+  els.minutes.textContent=pad(minutes);
+  els.seconds.textContent=pad(seconds);
+  els.year.textContent=yearAtYaounde(now)+1;
+  els.date.textContent=dateText(target);
+  els.time.textContent=timeText(now);
+  els.place.textContent=`${locationName} · live`;
+  const currentYear=yearAtYaounde(now);
+  const start=Date.UTC(currentYear,0,1)-offsetMs;
+  const percentage=Math.max(0,Math.min(100,(now-start)/(target.getTime()-start)*100));
+  els.bar.style.width=`${percentage.toFixed(2)}%`;
+  els.percent.textContent=`${Math.round(percentage)}% complete`;
+}
+function toast(message){els.toast.textContent=message;els.toast.classList.add('show');clearTimeout(toastTimer);toastTimer=setTimeout(()=>els.toast.classList.remove('show'),2400);}
+els.copy.addEventListener('click',async()=>{try{await navigator.clipboard.writeText(location.href);els.copyLabel.textContent='Link copied';toast('Countdown link copied.')}catch{toast('Copy the page URL from your browser.')}setTimeout(()=>{els.copyLabel.textContent='Copy this countdown'},2200)});
+update();
+setInterval(update,250);
