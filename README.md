@@ -1,2 +1,1 @@
-# NewYear27-Count-down
-Displays a countdown for the year 2027 in real time 
+Midnight / 237 — New Year CountdownA fresh, responsive countdown to New Year in Yaoundé, Cameroon. The interface uses the official Africa/Douala IANA timezone identifier for correct Central Africa Time calculations.Features•Live days, hours, minutes, and seconds•Yaoundé, Cameroon location label•Correct Africa/Douala timezone calculations•Automatic rollover to the next New Year•Responsive layout for mobile and desktop•Year-progress bar•Copy-link interaction•Reduced-motion support•No frontend dependencies
