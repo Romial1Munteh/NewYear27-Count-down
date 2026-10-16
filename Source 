@@ -53,4 +53,4 @@ html source
   <div class="toast" id="toast" role="status" aria-live="polite"></div>
   <script src="/script.js" defer></script>
 </body>
-</html>
+</html>.
