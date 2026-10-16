@@ -62,15 +62,7 @@ html source
 
 
 
-app.config.ts
 
-export default {
-  logoUrl: "https://files.manuscdn.com/user_upload_by_module/session_file/310519663894866692/aaArfxIvrbCftlMV.svg"
-};
-
-manus-routes.json
-
-{"routes":[{"path":"/","title":"New Year Countdown"}]}
 
 logo.svg
 
