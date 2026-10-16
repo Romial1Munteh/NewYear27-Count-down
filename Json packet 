@@ -1,0 +1,11 @@
+packet.json
+
+{
+  "name": "newyear-countdown",
+  "version": "1.0.0",
+  "private": true,
+  "description": "A luminous live countdown to the next New Year.",
+  "scripts": {
+    "start": "node server.js"
+  }
+}
